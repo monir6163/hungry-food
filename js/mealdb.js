@@ -109,7 +109,7 @@ const displayReasult = meals => {
             <div class="card-footer">
                 <div class="d-flex flex-column flex-md-row justify-content-between">
                     <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick = "loadFoodDetails(${meal.idMeal})">See details</button>
-                    <div class="btn btn-outline-success">Add to cart</div>
+                    <div onclick="addToCart(${meal.idMeal})" class="btn btn-outline-success">Add to cart</div>
                 </div>
             </div>
         </div>
@@ -117,6 +117,14 @@ const displayReasult = meals => {
         searchResultId.appendChild(div);
         document.getElementById('spiner').style.display = "none";
     });
+}
+// add to cart info 
+const addToCart = (mealId) => {
+    const url = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${mealId}`;
+    document.getElementById("cart-add-info").style.display = "block";
+    setTimeout(() => {
+    document.getElementById("cart-add-info").style.display = "none";
+  }, 2000);
 }
 const loadFoodDetails = async mealId => {
     allMealShow.innerHTML = spinner;
@@ -127,8 +135,16 @@ const loadFoodDetails = async mealId => {
     // .then(res => res.json())
     // .then(data => displayMealDetails(data.meals[0]))
 }
-const displayMealDetails = meal => {
+const displayMealDetails = (meal) => {
     const allMealShow = document.getElementById('modal');
     allMealShow.textContent = "";
-    allMealShow.innerHTML = `<h2>Nmae: ${meal.strMeal}</h2> <h4>Area: ${meal.strArea}</h4> <h5>Category: ${meal.strCategory}</h5> <img width = 100% src = "${meal.strMealThumb}"> <p>Instruction: ${meal.strInstructions.slice(0,250)}</p> <a href = "${meal.strSource}">Source: ${meal.strMeal}</a> <br> <a href = "${meal.strYoutube}">Youtube: ${meal.strMeal}</a>`
+    allMealShow.innerHTML = `<h2>Nmae: ${meal.strMeal}</h2> <h4>Area: ${meal.strArea}</h4> <h5>Category: ${meal.strCategory}</h5> <img width = 100% src = "${meal.strMealThumb}"> <p>Instruction: ${meal.strInstructions.slice(0,250)}</p> <a href = "${meal.strSource}">Source: ${meal.strMeal}</a> <br> <a href = "${meal.strYoutube}">Youtube: ${meal.strMeal}</a> <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">
+                        Close
+                    </button>
+                    <button onclick="addToCart(${meal.idMeal})" class="btn btn-outline-success">
+                        Add to cart
+                    </button>
+
+                </div>`
 }

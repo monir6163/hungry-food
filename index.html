@@ -74,6 +74,7 @@
             <div class="spinner-border" role="status">
                 <span class="visually-hidden">Loading...</span>
             </div>
+            <p class="text-success fs-4">Welcome to hungry zone. Search by your desire food name</p>
         </div>
         <div class="row mx-auto row-cols-1 row-cols-md-2 row-cols-lg-4 gx-lg-3 gx-md-5 gx-4 gy-5" id="show-category">
 
@@ -95,10 +96,14 @@
                 <div class="modal-body" id="modal">
                     ...
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                </div>
             </div>
+        </div>
+    </div>
+    <!-- for add to cart information -->
+    <div id="cart-add-info" style="display: none; z-index: 9999 !important"
+        class="mt-5 mx-auto fixed-top w-50 rounded-circle rounded-pill">
+        <div class="text-center alert alert-warning rounded-pill">
+            Item added to cart... Enjoy your meal. 🍲
         </div>
     </div>
     <!-- bootstrap cdn js -->
