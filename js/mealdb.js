@@ -1,6 +1,7 @@
 const searchResultId = document.getElementById('search-result');
 const allMealShow = document.getElementById('modal');
 const ShowCategory = document.getElementById('show-category');
+const searchText = document.getElementById('name');
 const spinner = `
 <div class="container text-center">
     <div class="spinner-border" role="status" id = "spin">
@@ -8,6 +9,7 @@ const spinner = `
     </div>
 </div>
 `;
+let inputValue;
 const message = document.getElementById('erorr-message');
 document.getElementById('not-found').style.display = 'none';
 // add category spinner 
@@ -50,7 +52,7 @@ const loadCategoryFood = async (strCategory) => {
 loadCategory()
 // search food 
 const searchFood = async () => {
-    const inputField = document.getElementById('name');
+    const inputField = searchText;
     message.innerHTML = "";
     searchResultId.textContent = "";
     const searchResult = inputField.value;
@@ -58,14 +60,14 @@ const searchFood = async () => {
     ShowCategory.textContent = "";
     document.getElementById('not-found').style.display = 'none';
     if (searchResult == "") {
-       message.innerHTML = `<div class=" w-100 mx-auto alert alert-danger alert-dismissible fade show" role="alert">
-  <strong>Hello 3rd Person!</strong> Please Enter Your FuckUp Name.
+       message.innerHTML = `<div class=" w-100 mx-auto alert alert-danger alert-dismissible fade show" role="alert">Please Enter Food Name.
   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>` 
     }
     else{
         searchResultId.innerHTML = spinner;
         const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${searchResult}`;
+        inputValue = searchResult;
         // fetch(url)
         try{
             const res = await fetch(url);
@@ -80,7 +82,7 @@ const searchFood = async () => {
             document.getElementById('not-found').style.display = 'block';
             const message = document.getElementById('not-found');
             message.innerHTML = `<div class=" w-100 mx-auto alert alert-danger alert-dismissible fade show" role="alert">
-        <strong>Hello 3rd Person!</strong> Search Result Product Not Found.
+        <strong>${inputValue}!</strong> Search Result Food Not Found.
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>`;
         document.getElementById('spin').style.display = "none";
