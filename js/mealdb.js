@@ -98,6 +98,7 @@ const searchFood = async () => {
 const displayReasult = meals => {
     const searchResultId = document.getElementById('search-result');
     searchResultId.textContent = "";
+    message.textContent = "";
     meals.forEach(meal => {
         const div = document.createElement('div');
         div.classList.add('col');
