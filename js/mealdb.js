@@ -52,6 +52,7 @@ loadCategory()
 const searchFood = async () => {
     const inputField = document.getElementById('name');
     message.innerHTML = "";
+    searchResultId.textContent = "";
     const searchResult = inputField.value;
     inputField.value = "";
     ShowCategory.textContent = "";
@@ -118,14 +119,6 @@ const displayReasult = meals => {
         document.getElementById('spiner').style.display = "none";
     });
 }
-// add to cart info 
-const addToCart = (mealId) => {
-    const url = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${mealId}`;
-    document.getElementById("cart-add-info").style.display = "block";
-    setTimeout(() => {
-    document.getElementById("cart-add-info").style.display = "none";
-  }, 2000);
-}
 const loadFoodDetails = async mealId => {
     allMealShow.innerHTML = spinner;
     const url = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${mealId}`;
@@ -147,4 +140,53 @@ const displayMealDetails = (meal) => {
                     </button>
 
                 </div>`
+}
+// add to cart info 
+const addToCart = async (mealId) => {
+    const url = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${mealId}`;
+    const res = await fetch(url);
+    const data = await res.json();
+    const { strMealThumb, strMeal } = data.meals[0];
+    document.getElementById("cart-add-info").style.display = "block";
+        let isFound = false;
+    const cart = document.getElementById("cart-items");
+    for (let item of cart.querySelectorAll(".cart-item")) {
+      const itemId = parseInt(item.querySelector(".meal-id").innerText);
+
+      if (itemId === mealId) {
+        let quantity = parseInt(item.querySelector(".meal-quantity").innerText);
+        item.querySelector(".meal-quantity").innerText = quantity + 1;
+        isFound = true;
+      }
+    }
+    if (!isFound) {
+        const cart = document.getElementById("cart-items");
+        cart.innerHTML += `
+      <div class="cart-item card py-2 px-4 mb-3" style="max-width: 540px">
+              <div class="row g-0">
+                <div class="col-md-4">
+                  <img
+                    src="${strMealThumb}"
+                    class="img-fluid rounded-circle"
+                    alt=""
+                  />
+                </div>
+                <div class="col-md-8">
+                  <div class="card-body ms-4">
+                    <h5 class="meal-title card-title">${strMeal}</h5>
+                    <h5 class="meal-id visually-hidden">${mealId}</h5>
+                    <p class="card-text">
+                      <small class="text-success fw-bolder fs-5"
+                        >Quantity: <span class="meal-quantity">1</span></small
+                      >
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+      `;
+    }
+    setTimeout(() => {
+    document.getElementById("cart-add-info").style.display = "none";
+  }, 2000);
 }
