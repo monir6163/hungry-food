@@ -14,9 +14,11 @@ const message = document.getElementById('erorr-message');
 document.getElementById('not-found').style.display = 'none';
 // add category spinner 
 document.getElementById('spiner').style.display = "none";
+document.getElementById('welcome').style.display = "none";
 // category  show function
 const loadCategory = async () => {
     document.getElementById('spiner').style.display = "block";
+    document.getElementById('welcome').style.display = "block";
     const url = `https://www.themealdb.com/api/json/v1/1/categories.php`;
     const res = await fetch(url);
     const data = await res.json();
@@ -38,6 +40,7 @@ const displayCategory = (categories) => {
         </div>`; 
         categoryContainer.appendChild(div);
         document.getElementById('spiner').style.display = "none";      
+        document.getElementById('welcome').style.display = "none";      
     });
 }
 // see category food 
