@@ -138,8 +138,8 @@ const displayMealDetails = (meal) => {
     const allMealShow = document.getElementById('modal');
     allMealShow.textContent = "";
     allMealShow.innerHTML = `<div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">${meal.strMeal}</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title" id="exampleModalLabel">${meal.strMeal}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <h2>Name: ${meal.strMeal}</h2> <h4>Area: ${meal.strArea}</h4> <h5>Category: ${meal.strCategory}</h5> <img width = 100% src = "${meal.strMealThumb}"> <p>Instruction: ${meal.strInstructions.slice(0,250)}</p> <a href = "${meal.strSource}">Source: ${meal.strMeal}</a> <br> <a href = "${meal.strYoutube}">Youtube: ${meal.strMeal}</a> <div class="modal-footer">
                     <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">
